@@ -1,0 +1,43 @@
+{% set exhibitTitle = nav[locale].exhibitTitle %}
+{% set exhibitSubtitle = nav[locale].exhibitSubtitle %}
+{% set about = nav[locale].about %}
+{% set artworkSubmission = nav[locale].artworkSubmission %}
+{% set exhibitionLocation = nav[locale].exhibitionLocation %}
+{% set contactUs = nav[locale].contactUs %}
+
+<nav>
+    <div class="nav-title">
+        <span class="exhibit-title">{{ exhibitTitle }}</span>
+        <span class="exhibit-subtitle">{{ exhibitSubtitle }}</span>
+    </div>
+    <div class="nav-menu">
+        <ul>
+            <li class="nav-menu-item current"><a href="#">{{ about }}</a></li>
+            <li class="nav-menu-item"><a href="#">{{ artworkSubmission }}</a></li>
+            <li class="nav-menu-item"><a href="#">{{ exhibitionLocation }}</a></li>
+            <li class="nav-menu-item"><a href="#">{{ contactUs }}</a></li>
+        </ul>
+    </div>
+
+    {% for lgg in site.languages %}
+        {% if loop.first %}
+            <div class="lang-switcher">
+        {% endif %}
+        {% set translatedUrl = "/" + lgg.code + "/" %}
+        {% set currentClass = "current" if lgg.code == locale else "" %}
+        {% for item in collections.all %}
+
+            {# for each item in the loop, check if
+            - its translationKey matches the current item translationKey
+            - its locale matches the code of the language we are looping through #}
+            {% if item.data.translationKey == translationKey and item.data.locale == lgg.code %}
+            {% set translatedUrl = item.url %}
+            {% endif %}
+
+        {% endfor %}
+        <span class="{{ currentClass }}"><a href="{{ translatedUrl }}">{{ lgg.code }}</a></span>
+        {% if loop.last %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</nav>

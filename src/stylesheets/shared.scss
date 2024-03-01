@@ -1,0 +1,601 @@
+/* SCSS file using eleventy-sass */
+
+/* Typography variables */
+:root {
+    --font-family: "Gill Sans", "Gill Sans Nova", "Gill Sans MT", Helvetica, Arial, sans-serif;
+
+    --font-weight-regular: 400;
+    --font-weight-bold: 600;
+
+    --font-size-body: 1.0625rem;
+    --line-height-body: 1.5rem;
+    --letter-spacing-body-regular-upright: 0.0174em;
+    --letter-spacing-body-regular-italic: 0.019em;
+    --letter-spacing-body-bold-upright: 0.0172em;
+    --letter-spacing-body-bold-italic: 0.0174em;
+
+    --font-size-small: 0.875rem;
+    --line-height-small: 1.25rem;
+    --letter-spacing-small-regular-upright: 0.024em;
+    --letter-spacing-small-regular-italic: 0.028em;
+}
+
+@mixin small-regular-upright {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    letter-spacing: var(--letter-spacing-small-regular-upright);
+}
+
+@mixin small-regular-italic {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    letter-spacing: var(--letter-spacing-small-regular-italic);
+    font-style: italic;
+}
+
+@mixin body-regular-upright {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-body-regular-upright);
+}
+
+@mixin body-regular-italic {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-body-regular-italic);
+    font-style: italic;
+}
+
+@mixin body-bold-upright {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-body-bold-upright);
+}
+
+@mixin body-bold-italic {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-body-bold-italic);
+    font-style: italic;
+}
+
+/* Color opacity variables */
+:root {
+    --background-color: #FFF;
+    --background-color-transparent: rgba(255, 255, 255, 0);
+    --text-color: #000;
+    --text-selection-color: rgba(0, 0, 0, 0.25);
+    --text-primary-regular-opacity: 0.72;
+    --text-primary-bold-opacity: 0.8;
+    --text-secondary-opacity: 0.4;
+}
+
+/* Spacing and proportion variables */
+$breakpoint-phone: 560px;
+$breakpoint-tablet: 640px;
+$breakpoint-desktop: 960px;
+
+:root {
+    --page-margin: 2.5rem;
+    --indent: 2.25rem;
+    --main-max-width: 31.5rem;
+}
+
+@media screen and (max-width: $breakpoint-phone) {
+    :root {
+        --page-margin: 2.25rem;
+    }
+}
+
+/* Global settings */
+html {
+    scroll-behavior: smooth;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    transition: background-color 250ms linear;
+
+    @include body-regular-upright;
+
+    margin: 0;
+}
+
+
+/* ----------------------------
+--------- Text styles ---------
+---------------------------- */
+
+h1,
+h2,
+h3 {
+    @include body-bold-upright;
+    opacity: var(--text-primary-bold-opacity);
+    margin: 0;
+}
+
+p {
+    opacity: var(--text-primary-regular-opacity);
+    margin: 0;
+}
+
+p i,
+p em {
+    letter-spacing: var(--letter-spacing-body-regular-italic);
+}
+
+small {
+    @include small-regular-upright;
+    opacity: var(--text-primary-regular-opacity);
+    margin: 0;
+}
+
+/* ----------------------------
+-------- Shared nav bar -------
+---------------------------- */
+
+nav {
+    padding: 1.375rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    transition: all 150ms ease;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        max-width: var(--main-max-width);
+    }
+
+    ul li {
+        transform: translateX(var(--indent));
+        margin-bottom: 0.25rem;
+        transition: all 125ms ease;
+    }
+
+    ul li:last-child {
+        margin-bottom: 0;
+    }
+
+    ul li.current {
+        transform: translateX(0);
+    }
+
+    ul li a {
+        text-decoration: none;
+        color: var(--text-color);
+        opacity: var(--text-secondary-opacity);
+        transition: opacity 75ms linear;
+    }
+
+    ul li a:hover {
+        opacity: var(--text-primary-regular-opacity);
+    }
+
+    ul li.current a {
+        @include body-bold-upright;
+        opacity: var(--text-primary-bold-opacity);
+    }
+}
+
+nav:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 9rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: transparent;
+}
+
+.nav-title {
+    width: 49%;
+    box-sizing: border-box;
+    padding-left: var(--page-margin);
+}
+
+.exhibit-title {
+    @include body-bold-italic;
+    opacity: var(--text-primary-bold-opacity);
+}
+
+.exhibit-subtitle {
+    opacity: var(--text-primary-regular-opacity);
+}
+
+.nav-menu {
+    width: 40%;
+}
+
+html[lang="ru"] .exhibit-title,
+html[lang="ru"] .exhibit-subtitle {
+    display: block;
+    max-width: 25rem;
+}
+
+nav.collapsed {
+    ul li:not(.current) {
+        display: none;
+    }
+}
+
+nav.collapsed:before {
+    background: linear-gradient(180deg, var(--background-color) 18.06%, var(--background-color-transparent) 100%);
+    transition: height 150ms ease-out;
+}
+
+nav.collapsed:hover {
+    ul li:not(.current) {
+        display: inherit;
+    }
+}
+
+nav.collapsed:hover:before {
+    height: 15rem;
+    background: linear-gradient(180deg, var(--background-color) 50%, var(--background-color-transparent) 100%);
+}
+
+@media screen and (max-width: $breakpoint-desktop) {
+    nav {
+        display: flex;
+        flex-direction: column;
+    }
+    .nav-title,
+    .nav-menu {
+        width: 100%;
+    }
+    .nav-title {
+        display: flex;
+        margin-bottom: 0.5rem;
+        padding-left: 0;
+    }
+    .exhibit-title,
+    .exhibit-subtitle {
+        display: block;
+    }
+    .exhibit-title {
+        width: 35%;
+        padding-left: var(--page-margin);
+        box-sizing: border-box;
+    }
+    .nav-menu {
+        padding-left: 35%;
+    }
+    nav.collapsed:before {
+        height: 12.5rem;
+        background: linear-gradient(180deg, var(--background-color) 38%, var(--background-color-transparent) 100%);
+    }
+    nav.collapsed:hover:before {
+        height: 18rem;
+        background: linear-gradient(180deg, var(--background-color) 57.5%, var(--background-color-transparent) 100%);
+    }
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+    .exhibit-title {
+        width: 9.75rem;
+    }
+    html[lang="ru"] .exhibit-subtitle {
+        padding-right: 6.375rem;
+        box-sizing: border-box;
+        hyphens: auto;
+    }
+    .nav-menu {
+        padding-left: 9.75rem;
+    }
+}
+
+@media screen and (max-width: $breakpoint-phone) {
+    .nav-title {
+        display: block;
+        padding-right: 6.375rem;
+        padding-left: var(--page-margin);
+    }
+    .exhibit-title,
+    .exhibit-subtitle {
+        display: inline;
+        padding: 0;
+    }
+    html[lang="ru"] .exhibit-subtitle {
+        padding-right: 0;
+        box-sizing: border-box;
+        hyphens: auto;
+    }
+    .nav-menu {
+        padding-left: var(--page-margin);
+    }
+
+    nav.collapsed {
+        .nav-title {
+            display: none;
+        }
+        ul li:not(.current) {
+            display: inherit;
+        }
+    }
+    nav.collapsed:before,
+    nav.collapsed:hover:before {
+        height: 15em;
+        background: linear-gradient(180deg, var(--background-color) 50%, var(--background-color-transparent) 100%);
+    }
+}
+
+// TODO: animating vertical position + opacity for nav expansion/collapse
+
+.lang-switcher {
+    @include small-regular-upright;
+
+    position: absolute;
+    top: 1.5625rem;
+    right: var(--page-margin);
+    display: flex;
+    column-gap: 0.5rem;
+    text-transform: uppercase;
+    
+    a {
+        text-decoration: none;
+        color: var(--text-color);
+        opacity: var(--text-secondary-opacity);
+        transition: opacity 57.5ms linear;
+    }
+
+    .current a,
+    a:hover  {
+        opacity: var(--text-primary-regular-opacity);
+    }
+}
+
+
+/* ----------------------------
+------------- main ------------
+---------------------------- */
+
+main {
+    margin-top: 20.875rem;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: $breakpoint-phone) {
+    main {
+        margin-top: 25.375rem;
+    }
+}
+
+section {
+    width: 40%;
+    max-width: var(--main-max-width);
+    margin-left: 49%;
+    margin-bottom: 6rem;
+    position: relative;
+    
+    ::selection {
+        background-color: var(--text-selection-color);
+    }
+
+    p {
+        margin-bottom: 1.5rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--text-color);
+        position: relative;
+    }
+
+    li {
+        opacity: var(--text-primary-regular-opacity);
+    }
+
+    a:after {
+        content: "";
+        display: block;
+        height: 1px;
+        width: 100%;
+        position: absolute;
+        bottom: -0.25rem;
+        left: 0;
+        background-color: var(--text-color);
+        opacity: 0.6;
+    }
+
+    a:hover:after {
+        opacity: 1;
+    }
+
+    ul, ol {
+        margin: 1.5rem 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul li {
+        margin-bottom: 0.25rem;
+    }
+
+    ul li:last-child {
+        margin-bottom: 0;
+    }
+
+    ul li:before {
+        content: "";
+        display: inline-block;
+        width: 0.3125rem;
+        height: 0.3125rem;
+        border-radius: 5rem;
+        background-color: var(--text-color);
+        transform: translateY(-0.175rem);
+        margin-right: 0.75rem;
+    }
+}
+
+section:last-child {
+    margin-bottom: 1.625rem;
+}
+
+.section-title {
+    position: absolute;
+    top: 0;
+    left: calc(-100% - var(--indent));
+    text-align: end;
+    width: 100%;
+}
+
+@media screen and (max-width: $breakpoint-desktop) {
+    section {
+        margin-left: 35%;
+        margin-right: var(--page-margin);
+        width: 55%;
+    }
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+    section {
+        margin-left: 9.75rem;
+        width: unset;
+    }
+    .section-title {
+        position: initial;
+        text-align: start;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media screen and (max-width: $breakpoint-phone) {
+    section {
+        margin-left: var(--page-margin);
+    }
+}
+
+.team-role {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+
+    span {
+        opacity: var(--text-primary-regular-opacity);
+    }
+
+    .title {
+        @include body-regular-italic;
+    }
+}
+
+.team-role:last-child {
+    margin-bottom: 0;
+}
+
+.emphasis {
+    position: relative;
+}
+
+.emphasis:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: -1.125rem;
+    transform: translateY(-50%);
+    width: 0.5625rem;
+    height: 0.5625rem;
+    background-color: var(--text-color);
+    mask-image: url("../assets/emphasis_triangle.svg");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url("../assets/emphasis_triangle.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+
+}
+
+/* ----------------------------
+-------- Page switching -------
+---------------------------- */
+
+.page {
+    display: none;
+    opacity: 0;
+    transform: translateX(0.5rem);
+}
+
+.page.current {
+    display: block;
+}
+
+.page.current.fadeIn {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 125ms ease-out;
+}
+
+
+/* ----------------------------
+------------ footer -----------
+---------------------------- */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 var(--page-margin) 1.6875rem var(--page-margin);
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#footer-time {
+    display: block;
+}
+
+#clear-canvas {
+    pointer-events: none;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 100ms linear;
+}
+
+@media screen and (max-width: $breakpoint-phone) {
+    footer {
+        position: unset;
+    }
+}
+
+#clear-canvas.available {
+    pointer-events: all;
+    opacity: var(--text-primary-regular-opacity);
+}
+
+#clear-canvas.available:hover {
+    opacity: var(--text-secondary-opacity);
+}
+
+
+/* ----------------------------
+------------ canvas -----------
+---------------------------- */
+
+#can {
+    opacity: 0.175;
+    position: fixed;
+    filter: blur(40px);
+    -webkit-filter: blur(40px);
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}

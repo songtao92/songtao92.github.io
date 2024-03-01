@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^$ /en/ [R=301,L]
