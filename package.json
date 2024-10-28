@@ -17,5 +17,9 @@
     "chromatic-sass": "^0.1.8",
     "eleventy-sass": "^2.2.4",
     "moment": "^2.30.1"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "module"
 }
